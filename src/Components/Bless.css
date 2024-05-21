@@ -1,0 +1,41 @@
+.bundle {
+    display: flex;
+   
+    align-items: center;
+}
+
+.bundle img {
+   
+    width: 650px;
+    height: 650px;
+}
+
+.content {
+    padding-bottom:500px;
+    margin-left: 20px; /* Adjust this value as needed */
+}
+
+.writing h1{
+    justify-content: center;
+}
+
+
+.reviews {
+    border: 3px solid ;
+    color:black;
+    background-color:white;
+}
+
+.reviews h1{
+    font-size: larger;
+    font-style: italic;
+    
+}
+
+.rating {
+    color: gold; /* Color for the stars */
+  }
+
+  .star {
+    font-size: 20px; /* Adjust size as needed */
+  }
