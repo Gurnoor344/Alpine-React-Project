@@ -46,12 +46,12 @@ const AboutUs = () => {
 <div className="row">
   <div className="column">
     <div className="card">
-      <img src="harman.png" alt="Harmanjeet Singh" style={{width:"100%"}}/>
+      <img src="harman.png" alt="Gursahaj Singh" style={{width:"100%"}}/>
       <div className="container">
-        <h2>Harmanjeet Singh</h2>
+        <h2>Gursahaj Singh </h2>
         <p className="title">Product Manager</p>
-        <p> Harman involves overseeing the development, marketing, and management of the nursery's products and services. </p>
-        <p><i>harmanjeet372.be22@chitkara.edu.in</i></p>
+        <p> Gursahaj involves overseeing the development, marketing, and management of the nursery's products and services. </p>
+        <p><i>gursahaj349.be22@chitkara.edu.in</i></p>
         <p><button className="button">Contact</button></p>
       </div>
     </div>
