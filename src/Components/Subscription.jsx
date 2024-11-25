@@ -1,13 +1,14 @@
+// Subscription.js (Frontend - React)
 import React, { useState } from 'react';
 
 const Subscription = () => {
-  const [email, setEmail] = useState(''); // State to store the email input
-  const [agreed, setAgreed] = useState(false); // State to track agreement to terms
+  const [email, setEmail] = useState('');  // State to store the email input
+  const [agreed, setAgreed] = useState(false);  // State to track agreement to terms
 
   // Enhanced email validation function
   const isValidEmail = (email) => {
     // Regex: Ensures username starts with a letter, followed by alphanumerics, and domain includes "@"
-    const emailRegex = /^[a-zA-Z][a-zA-Z0-9]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const emailRegex = /^[a-zA-Z0-9._!#$%&'*+/=?^`{|}~-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailRegex.test(email);
   };
 
