@@ -46,7 +46,7 @@ const AboutUs = () => {
 <div className="row">
   <div className="column">
     <div className="card">
-      <img src="harman.png" alt="Gursahaj Singh" style={{width:"100%"}}/>
+      <img src="gursahaj.jpg" alt="Gursahaj Singh" style={{width:"100%"}}/>
       <div className="container">
         <h2>Gursahaj Singh </h2>
         <p className="title">Product Manager</p>
