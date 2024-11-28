@@ -5,28 +5,25 @@ import "./Cart.css";
 const Cart = () => {
     const [cart2, setCart] = useState([]);
     const [checkout, setCheckout] = useState(false);
-    const TAX_RATE = 100.00;
+    const [walletBalance, setWalletBalance] = useState(500.0); // Initial wallet balance
+    const TAX_RATE = 100.0;
 
     useEffect(() => {
         const savedCart = JSON.parse(localStorage.getItem('cart')) || [];
-        console.log("Saved Cart :- ", savedCart);
-
         const logged = localStorage.getItem('logged');
         if (!logged) {
-          setCart([]);
-          return;
+            setCart([]);
+            return;
         }
         setCart(savedCart);
     }, []);
 
     const handleQuantityChange = (e, itemName) => {
         const newQuantity = Number(e.target.value);
-
         if (newQuantity < 1) {
             alert('Quantity must be at least 1');
             return;
         }
-
         const updatedCart = cart2.map(item =>
             item.name === itemName ? { ...item, quantity: newQuantity } : item
         );
@@ -49,67 +46,103 @@ const Cart = () => {
         return subtotal + TAX_RATE;
     };
 
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      if (cart2.length === 0) {
-          alert('Cart is empty');
-          return;
-      }
-      if (checkout) {
-          alert('Checkout already done');
-          return;
-      }
-      setCheckout(true);
-      localStorage.removeItem('cart');
-      setCart([]);
-      alert('Checkout successful');
-    }
+    const handleCheckout = (e) => {
+        e.preventDefault();
+        const total = calculateTotal();
+        if (cart2.length === 0) {
+            alert('Cart is empty');
+            return;
+        }
+        if (checkout) {
+            alert('Checkout already done');
+            return;
+        }
+        if (walletBalance < total) {
+            alert('Insufficient wallet balance. Please add money to your wallet.');
+            return;
+        }
+        setWalletBalance(walletBalance - total);
+        setCheckout(true);
+        localStorage.removeItem('cart');
+        setCart([]);
+        alert('Successful');
+    };
+
+    const handleTopUp = (amount) => {
+        if (amount > 0) {
+            setWalletBalance(walletBalance + amount);
+            alert(`Wallet topped up by Rs ${amount.toFixed(2)}`);
+        } else {
+            alert('Enter a valid amount to top up.');
+        }
+    };
 
     return (
         <div className="small-container cart-page">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Quantity</th>
-                        <th>Subtotal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {cart2.map(item => (
-                        <CartItem
-                            key={item.name}
-                            item={item}
-                            onQuantityChange={handleQuantityChange}
-                            onDelete={handleDeleteItem}
-                        />
-                    ))}
-                </tbody>
-            </table>
-
-            <div className="total-price">
-                <table>
-                    <tbody>
-                        <tr>
-                            <td>Subtotal</td>
-                            <td>Rs {calculateSubtotal().toFixed(2)}</td>
-                        </tr>
-                        <tr>
-                            <td>Tax</td>
-                            <td>Rs {TAX_RATE.toFixed(2)}</td>
-                        </tr>
-                        <tr>
-                            <td>Total</td>
-                            <td>Rs {calculateTotal().toFixed(2)}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div style={{display: "flex", justifyContent:"center", width: "100%"}}>
-                  <button type='submit' className='submitbtn' onClick={(e) => handleSubmit(e)}>Checkout</button>
-                </div>
+            <div className="wallet-section">
+                <h3>Wallet Balance: Rs {walletBalance.toFixed(2)}</h3>
+                <button onClick={() => handleTopUp(500.0)}>Add Rs 500</button>
+                
+                <button onClick={() => handleTopUp(1000.0)}>Add Rs 1000</button>
             </div>
+
+            {checkout && (
+                <div className="submit-success">
+                     Successful! Your wallet has been charged. Thank you for your purchase.
+                </div>
+            )}
+
+            {cart2.length === 0 ? (
+                <div className="empty-cart">
+                    Your cart is empty. <a href="Products">Go back to shopping</a>.
+                </div>
+            ) : (
+                <>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {cart2.map(item => (
+                                <CartItem
+                                    key={item.name}
+                                    item={item}
+                                    onQuantityChange={handleQuantityChange}
+                                    onDelete={handleDeleteItem}
+                                />
+                            ))}
+                        </tbody>
+                    </table>
+
+                    <div className="total-price">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>Subtotal</td>
+                                    <td>Rs {calculateSubtotal().toFixed(2)}</td>
+                                </tr>
+                                <tr>
+                                    <td>Tax</td>
+                                    <td>Rs {TAX_RATE.toFixed(2)}</td>
+                                </tr>
+                                <tr>
+                                    <td>Total</td>
+                                    <td>Rs {calculateTotal().toFixed(2)}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button type="submit" className="submitbtn" onClick={handleCheckout}>
+                            Pay From Wallet
+                        </button>
+                    </div>
+                </>
+            )}
         </div>
     );
 };
 
-export default Cart;
+export default Cart; 

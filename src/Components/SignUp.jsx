@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import "./SignUp.css";
 
 const SignUp = () => {
@@ -15,7 +16,7 @@ const SignUp = () => {
   };
 
   const validatePassword = (password) => {
-    // Example: Password must be at least 8 characters long
+    // Password must be at least 8 characters long
     return password.length >= 8;
   };
 
@@ -39,27 +40,30 @@ const SignUp = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateEmail(username) && validatePassword(password)) {
-      // Handle form submission
-      console.log('Form submitted with:', { username, password });
+      try {
+        const response = await axios.post('http://localhost:5000/login', {
+          email: username,
+          password: password,
+        });
+
+        if (response.status === 200) {
+          // Handle successful login
+          localStorage.setItem('logged', true);
+          alert('Login successful');
+          navigate('/');
+          window.location.reload();
+        }
+      } catch (error) {
+        console.error('Error during login:', error);
+        alert('Invalid email or password.');
+      }
     } else {
       console.log('Form has errors.');
     }
   };
-
-  const handleSign = (e) => {
-    e.preventDefault();
-    if (username === '' && password === '') {
-      alert('Please fill the form');
-      return;
-    }
-    localStorage.setItem('logged', true);
-    alert("login successfull");
-    navigate("/");
-    window.location.reload();
-  }
 
   return (
     <div className='login-body'>
@@ -94,8 +98,8 @@ const SignUp = () => {
           />
           {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
 
-          <button type="submit" onClick={(e) => {handleSign(e)}}>Log In</button>
-          <a href="create.html" style={{color: "white"}} className="navbar-link" data-nav-link>Create account </a>
+          <button type="submit">Log In</button>
+          
         </form>
       </div>
     </div>

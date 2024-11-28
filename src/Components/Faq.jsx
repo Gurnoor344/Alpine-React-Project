@@ -78,7 +78,7 @@ const FAQ = () => {
         <FAQItem key={index} question={faq.question} answer={faq.answer} />
       ))}
       {/* Query form */}
-      <form onSubmit={handleSubmit}>
+      {/* /* <form onSubmit={handleSubmit}>
         <h2>Ask a Question</h2>
         <input
           type="text"
@@ -88,7 +88,7 @@ const FAQ = () => {
           required
         />
         <button type="submit">Submit</button>
-      </form>
+      </form> */ }
     </div>
   );
 };
