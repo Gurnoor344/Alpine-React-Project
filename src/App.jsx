@@ -1,4 +1,5 @@
 import React from 'react'
+//import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './Components/Navbar'
 import AboutUs from './Components/AboutUs'
 import Products from './Components/Products'
@@ -32,8 +33,8 @@ const App = () => {
         <Route path='/OurServices' element={<OurServices />}></Route>
         <Route path='/Faq' element={<Faq />}></Route>
         <Route path='/Contact' element={<Contact />}></Route>
-        <Route path='/Login' element={<SignUp />}></Route> {/* Add Login Route */}
-        <Route path='/SignUp' element={<Login />}></Route> {/* Keep SignUp Route */}
+        <Route path='/Login' element={<SignUp />}></Route> 
+        <Route path='/SignUp' element={<Login />}></Route> 
         <Route path='/Cart' element={<Cart />}></Route>
         <Route path='/Gardening' element={<Gardening />}></Route>
         <Route path='/Seed' element={<Seed />}></Route>
@@ -50,3 +51,4 @@ const App = () => {
 }
 
 export default App;
+

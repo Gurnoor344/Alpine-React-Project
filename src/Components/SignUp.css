@@ -1,4 +1,4 @@
-*,
+  *,
 *:before,
 *:after{
     padding: 0;
@@ -46,8 +46,8 @@ form{
     backdrop-filter: blur(10px);
     border: 2px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
-    padding: 20px 35px; /* Reduced padding for better fit */
-    max-height: 90vh; /* Makes the form height flexible */
+    padding: 20px 35px; 
+    max-height: 90vh; 
     overflow: auto; 
 }
 form *{
@@ -107,4 +107,4 @@ button{
       width: 100%;
    }
 }
-}
+} 
